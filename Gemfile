@@ -49,3 +49,6 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
+
+# Generate seed data
+gem 'faker'
