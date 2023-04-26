@@ -1,5 +1,7 @@
 # Tea Share App
 
+This app is for tea enthusiasts to connect by sharing their favorite tea blends and discovering new blends. Users simply sign up, login, post their favorite tea blends, and browse tea blends shared by others. Users can also post reviews for tea blends.
+
 ## Description
 
 This project is scaffolded so that you can build a React frontend and Rails
@@ -9,7 +11,7 @@ backend together, and easily deploy them to Render.
 SQLite, you will need to make the following changes in the project files:
 
 1. In the `Gemfile`, replace `gem 'pg', '~> 1.1'` with `gem 'sqlite3', '~>
-   1.4'`.
+1.4'`.
 2. In the `database.yml` file, change the line `adapter: postgresql` to
    `adapter: sqlite3`.
 
