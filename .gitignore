@@ -29,3 +29,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Many large files added that don't need to be tracked when installing MUI styling.
+node_modules/
+package-lock.json
