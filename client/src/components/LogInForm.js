@@ -14,7 +14,7 @@ const LogInForm = () => {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   // removed user variable to clear warning in browser console
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
