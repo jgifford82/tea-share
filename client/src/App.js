@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   // don't need setUser in dependency array, but added it in to clear warning on browser console. removing dependency array led to continuous fetches.
   useEffect(() => {
@@ -25,6 +25,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* if user is truthy, && operator returns the route so a user that's logged in can see the teas */}
+          {user && <Route path="/teas" />}
         </Routes>
       </Router>
     </div>
