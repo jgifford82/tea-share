@@ -22,6 +22,11 @@ const TeasList = () => {
       <br></br>
       <strong>Category:</strong> <br></br>
       {tea.category.name}
+      <br></br>
+      <br></br>
+      <strong>Caffeine Level:</strong>
+      <br></br>
+      {tea.caffeine_level}
     </ul>
   ));
   return (
