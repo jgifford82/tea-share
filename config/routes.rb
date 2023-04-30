@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index]
   resources :reviews, only: [:index]
-  resources :teas, only: [:index]
+  resources :teas, only: [:index, :create]
   resources :users, only: [:index]
   
   post "/signup", to: "users#create"
