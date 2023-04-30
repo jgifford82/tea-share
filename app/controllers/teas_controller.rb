@@ -8,4 +8,28 @@ class TeasController < ApplicationController
         tea = Tea.order('lower(name)').all
         render json: tea, include: ['category', 'reviews', 'reviews.user']
     end
+
+    # POST a new tea
+    # associate the tea with the current user who is creating it by merging the current user's id to the tea_params before saving the new tea
+    # use the build method to associate the tea with a category
+    # Save tea & return it as a response
+    def create
+        tea_params_with_user_id = tea_params.merge(user_id: current_user.id)
+        tea = Category.find(params[:category_id]).teas.build(tea_params_with_user_id)
+        tea.save!
+        render json: tea, status: :created
+    end
+
+    private 
+
+    def tea_params
+        params.permit(:name, :blend, :caffeine_level, :category_id)
+    end
+
+    # find the user id stored in the session hash & save to instance variable so the user can be retrieved from the instance variable instead of querying the database multiple times
+    # ||= is "conditional assignment operator" or "double pipe equals" operator. It assigns the value on the right-hand side of the expression to the variable on the left-hand side only if the variable is currently nil or false. 
+    # If @current_user has already been assigned a value before, then it will simply return the previously assigned value without executing User.find_by(id: session[:user_id]) again.
+    def current_user
+        @current_user ||= User.find_by(id: session[:user_id])
+    end
 end
