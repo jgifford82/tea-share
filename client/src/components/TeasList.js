@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { TeasContext } from "../context/teas";
+import TeasForm from "./TeasForm";
 
 const TeasList = () => {
   const { teas } = useContext(TeasContext);
@@ -12,9 +13,9 @@ const TeasList = () => {
 
   const renderTeas = teas.map((tea) => (
     <ul key={tea.id}>
-      <em>
+      <strong>
         <Link to={`/teas/${tea.id}`}>{tea.name}</Link>
-      </em>{" "}
+      </strong>{" "}
       <br></br>
       <strong>Blend:</strong> <br></br>
       {tea.blend}
@@ -32,6 +33,7 @@ const TeasList = () => {
   return (
     <div>
       <h1>Tea</h1>
+      <TeasForm />
       {renderTeas}
     </div>
   );
