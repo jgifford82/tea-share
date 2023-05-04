@@ -1,4 +1,6 @@
 class TeasController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    
     skip_before_action :authorize, only: [:index]
 
     #including category, reviews & reviews.user in #index & #show allows access to deeply nested data. without it, ActiveModel Serializer only nests associations 1 level deep. this also limits the user attributes to those in user serializer.
@@ -18,6 +20,13 @@ class TeasController < ApplicationController
         tea = Category.find(params[:category_id]).teas.build(tea_params_with_user_id)
         tea.save!
         render json: tea, status: :created
+    end
+
+
+    # GET a specific tea including nested reviews data
+    def show
+        tea = Tea.find(params[:id])
+        render json: tea, include: ['reviews', 'reviews.user']
     end
 
     private 
