@@ -35,7 +35,7 @@ const TeasForm = () => {
         [name]: value,
       });
     }
-    console.log(values);
+    // console.log(values);
   };
 
   function handleSubmit(e) {
