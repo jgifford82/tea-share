@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import TeasList from "./components/TeasList";
+import TeaReviewsList from "./components/TeaReviewsList";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -48,6 +49,7 @@ function App() {
           {!loading && user && (
             <Route path="/teas" element={<TeasList teas={teas} />} />
           )}
+          <Route path="/teas/:id" element={<TeaReviewsList />} />
         </Routes>
       </Router>
     </div>
