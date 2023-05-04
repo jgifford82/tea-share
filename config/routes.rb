@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index]
   resources :reviews, only: [:index]
-  resources :teas, only: [:index, :create]
+  resources :teas, only: [:index, :show, :create] do
+    # nested resource for reviews
+    # all 5 RESTful routes are used, no need for only:
+    resources :reviews
+  end
   resources :users, only: [:index]
   
   post "/signup", to: "users#create"
