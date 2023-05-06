@@ -53,14 +53,25 @@ users.each do |user|
       category_id: Category.all.sample.id
     )
 
-    # create 3 user reviews for each tea
+    # create 3 user reviews for each tea, but a user can only leave 1 review per tea
     3.times do
+      # Get all the users who haven't reviewed the tea yet
+      users_without_reviews = User.where.not(id: tea.reviews.pluck(:user_id))
+      # Select a random user from the list of users who haven't reviewed the tea
+      user_without_review = users_without_reviews.sample
+      # Create the review with the selected user and tea
       Review.create!(
         comment: Faker::TvShows::TheITCrowd.unique.quote,
         rating: rand(1..5),
-        user_id: User.all.sample.id,
+        user_id: user_without_review.id,
         tea_id: tea.id
       )
+      # Review.create!(
+      #   comment: Faker::TvShows::TheITCrowd.unique.quote,
+      #   rating: rand(1..5),
+      #   user_id: User.all.sample.id,
+      #   tea_id: tea.id
+      # )
     end
   end
 end
