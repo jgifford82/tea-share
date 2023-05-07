@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
+    # raise: false means that if the authorize filter is not found, Rails will not raise an exception and will simply skip the authorize filter for the index action. Without the raise option, Rails will raise an AbstractController::ActionNotFound exception.
+    skip_before_action :authorize, only: [:create, :index], raise: false
+    
     # GET all users
     def index
         users = User.all
-        render json: users
+        # render json: users
+        render json: users, include: ['teas.category'], status: 200
     end
 
     # POST new user (sign up)
@@ -25,6 +29,7 @@ class UsersController < ApplicationController
             user = User.find_by!(id: session[:user_id])
         end
         render json: user, include: "*", status: 200
+        # render json: user, include: ['teas', 'teas.category'], status: 200
     end
 
     private
