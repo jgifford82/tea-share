@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
+import { UsersContext } from "./context/users";
 import { TeasContext } from "./context/teas";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -7,9 +8,11 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import TeasList from "./components/TeasList";
 import TeaReviewsList from "./components/TeaReviewsList";
+import UserTeasList from "./components/UserTeasList";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const { setUsers } = useContext(UsersContext);
   const { teas, setTeas } = useContext(TeasContext);
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +29,16 @@ function App() {
   }, [setTeas]);
 
   console.log(teas);
+
+  // Fetches users data (containing teas) from backend server & sets state with that data.
+  useEffect(() => {
+    fetch("/users")
+      .then((r) => r.json())
+      // .then((data) => console.log(data));
+      .then((data) => setUsers(data));
+  }, [setUsers]);
+
+  // console.log(users);
 
   // don't need setUser in dependency array, but added it in to clear warning on browser console. removing dependency array led to continuous fetches.
   useEffect(() => {
@@ -50,6 +63,7 @@ function App() {
             <Route path="/teas" element={<TeasList teas={teas} />} />
           )}
           <Route path="/teas/:id" element={<TeaReviewsList />} />
+          <Route path="/users/:id" element={<UserTeasList />} />
         </Routes>
       </Router>
     </div>
