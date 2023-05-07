@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./context/user";
 import { TeasProvider } from "./context/teas";
+import { UsersProvider } from "./context/users";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <TeasProvider>
-        <App />
-      </TeasProvider>
+      <UsersProvider>
+        <TeasProvider>
+          <App />
+        </TeasProvider>
+      </UsersProvider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
