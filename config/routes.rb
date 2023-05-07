@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     # all 5 RESTful routes are used, no need for only:
     resources :reviews
   end
-  resources :users, only: [:index]
+  resources :users, only: [:index, :show]
   
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
