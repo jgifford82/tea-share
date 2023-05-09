@@ -1,6 +1,7 @@
 import { TeasContext } from "../context/teas";
 import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import TeaReviewsForm from "./TeaReviewsForm";
 
 const TeaReviewsList = () => {
   // use TeasContext to access teas state
@@ -28,14 +29,15 @@ const TeaReviewsList = () => {
         <span style={{ fontWeight: "bold" }}>
           <Link to={`/users/${review.user.id}`}>{review.user.username}:</Link>
         </span>{" "}
-        "{review.comment}"
+        "{review.comment}"<br></br>
+        <strong>Rating:</strong> {review.rating}
       </li>
     </div>
   ));
 
   return (
     <div>
-      {" "}
+      <TeaReviewsForm />{" "}
       <h1>
         Reviews for
         <br></br>
