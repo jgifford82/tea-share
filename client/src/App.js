@@ -28,7 +28,7 @@ function App() {
       });
   }, [setTeas]);
 
-  console.log(teas);
+  // console.log(teas);
 
   // Fetches users data (containing teas) from backend server & sets state with that data.
   useEffect(() => {
