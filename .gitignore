@@ -33,3 +33,6 @@
 # Many large files added that don't need to be tracked when installing MUI styling.
 node_modules/
 package-lock.json
+
+# shows the list of postgresql databases associated with the old instance of postgresql. appeared after  backing up and recreating my databases on Render & replacing the expiring postgresql instance.
+q
