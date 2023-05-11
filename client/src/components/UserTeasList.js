@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const UserTeasList = () => {
   const { users } = useContext(UsersContext);
-  console.log(users);
+  // console.log(users);
 
   // useParams pulls the user ID from the URL & returns object with key/value pairs.
   const params = useParams();
@@ -20,7 +20,7 @@ const UserTeasList = () => {
 
   // find all teas with user id that equals the params id, which had to be converted from string to number using parseInt.
   const foundUser = users.find(({ id }) => id === parseInt(params.id));
-  console.log(foundUser);
+  // console.log(foundUser);
 
   // create a list of all teas that the user has reviewed
   // The question mark in foundUser?.teas.map is the optional chaining operator. It allows safe access to nested properties or methods of an object without causing an error if the object is null or undefined, which prevents errors the first time navigating to the page if users hasn't loaded yet.
