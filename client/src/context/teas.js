@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // useContext hook lets us access the value of our context provider in any child component.
-// import { UserContext } from "./user";
+import { UserContext } from "./user";
 
 // create the context
 const TeasContext = React.createContext();
@@ -11,7 +11,7 @@ function TeasProvider({ children }) {
   const [teas, setTeas] = useState(null);
 
   // import UserContext and access user state and setUser function
-  // const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   // Updates state responsible for rendering teas when new tea is added, which displays new tea at the top of the list.
   function addTea(newTea) {
@@ -34,13 +34,13 @@ function TeasProvider({ children }) {
     });
 
     // update logged in user state with new review. if user navigates to My Reviews page after posting a new review, the new review will be displayed without having to refresh the page.
-    // const updateUser = { ...user, reviews: [...user.reviews, newReview] };
+    const updateUser = { ...user, reviews: [...user.reviews, newReview] };
 
     // console.log(updateTeas);
     setTeas(updateTeas);
 
     // console.log(updateUser);
-    // setUser(updateUser);
+    setUser(updateUser);
   }
 
   return (
