@@ -63,7 +63,7 @@ const TeaReviewsForm = () => {
         setErrors([]);
         // r.json().then((data) => console.log(data));
         // addTea callback function defined in TeasContext
-        r.json().then((newTea) => addReview(newTea));
+        r.json().then((newReview) => addReview(newReview));
       } else {
         // console log shows errors as an array:
         // r.json().then((err) => console.log(err));
