@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/user";
 
-const MyReviewsCard = () => {
+const MyReviewsCard = ({ onDeleteClick }) => {
   // user variable from UserContext allows access to the list of logged in user's teas & reviews
   const { user } = useContext(UserContext);
   console.log(user);
@@ -16,8 +16,8 @@ const MyReviewsCard = () => {
     return (
       <div key={review.id}>
         <h3>{review.tea.name}</h3>
-        {/* <button onClick={(e) => onDeleteClick(e, review)}>X</button>{" "}
-        <button onClick={(e) => handleEditClick(e, review)}>Edit</button>{" "} */}
+        <button onClick={(e) => onDeleteClick(e, review)}>X</button>{" "}
+        {/* <button onClick={(e) => handleEditClick(e, review)}>Edit</button>{" "} */}
         <span>{review.comment}</span>
       </div>
     );
