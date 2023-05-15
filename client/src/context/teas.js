@@ -43,9 +43,41 @@ function TeasProvider({ children }) {
     setUser(updateUser);
   }
 
+  function deleteReview(deletedReview) {
+    // console.log("handle delete Review", deletedReview);
+
+    // update logged in user state without the deleted review so it's no longer displayed on My Reviews page.
+    // set state by creating a new array in which the deleted item has been filtered out
+    const updateUser = {
+      ...user,
+      reviews: user.reviews.filter((review) => review.id !== deletedReview.id),
+    };
+
+    // map over teas. if the tea id matches the deleted review's foreign key for tea id, it will copy the tea and filter down the tea's reviews to those whose id don't match the deleted review's id.
+    const updateTeas = teas.map((tea) => {
+      if (tea.id === deletedReview.tea_id) {
+        return {
+          ...tea,
+          reviews: tea.reviews.filter(
+            (review) => review.id !== deletedReview.id
+          ),
+        };
+      }
+      return tea;
+    });
+
+    // console.log(updateUser);
+    setUser(updateUser);
+
+    // console.log(updateTeas);
+    setTeas(updateTeas);
+  }
+
   return (
     // the value prop of the provider will be our context data. this value will be available to child components of this provider
-    <TeasContext.Provider value={{ teas, setTeas, addTea, addReview }}>
+    <TeasContext.Provider
+      value={{ teas, setTeas, addTea, addReview, deleteReview }}
+    >
       {children}
     </TeasContext.Provider>
   );
