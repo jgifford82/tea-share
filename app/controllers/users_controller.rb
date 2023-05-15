@@ -5,7 +5,6 @@ class UsersController < ApplicationController
     # GET all users
     def index
         users = User.all
-        # render json: users
         render json: users, include: ['teas.category'], status: 200
     end
 
@@ -30,6 +29,7 @@ class UsersController < ApplicationController
         end
         render json: user, include: "*", status: 200
         # render json: user, include: ['teas', 'teas.category'], status: 200
+        # render json: user, include: ['reviews.teas'], status: 200
     end
 
     private
