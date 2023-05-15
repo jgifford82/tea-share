@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
   resources :categories, only: [:index]
-  resources :reviews, only: [:index]
   resources :teas, only: [:index, :show, :create] do
     # nested resource for reviews
     # all 5 RESTful routes are used, no need for only:
