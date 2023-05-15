@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import TeasList from "./components/TeasList";
 import TeaReviewsList from "./components/TeaReviewsList";
 import UserTeasList from "./components/UserTeasList";
+import MyReviewsList from "./components/MyReviewsList";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -64,6 +65,8 @@ function App() {
           )}
           <Route path="/teas/:id" element={<TeaReviewsList />} />
           <Route path="/users/:id" element={<UserTeasList />} />
+          {/* if user is truthy, && operator returns the route so a user that's logged in can see their reviews list */}
+          {user && <Route path="/my-reviews" element={<MyReviewsList />} />}
         </Routes>
       </Router>
     </div>
