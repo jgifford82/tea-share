@@ -73,10 +73,48 @@ function TeasProvider({ children }) {
     setTeas(updateTeas);
   }
 
+  function editReview(editReview) {
+    // console.log("In ReviewsList:", editReview);
+
+    // map over all teas. if the tea id matches edited review's foreign key for tea id, it'll replace existing review as long as the review id matches the id of the review being edited.
+    const updateTeas = teas.map((tea) => {
+      if (tea.id === editReview.tea_id) {
+        return {
+          ...tea,
+          reviews: tea.reviews.map((review) => {
+            if (review.id === editReview.id) {
+              return editReview;
+            }
+            return review;
+          }),
+        };
+      }
+      return tea;
+    });
+
+    // update logged in user state with the edited review
+    // create a new updateUser object that copies the user state and replaces the old review object with the updated review object in the reviews array using the map function.
+    const updateUser = {
+      ...user,
+      reviews: user.reviews.map((review) => {
+        if (review.id === editReview.id) {
+          return editReview;
+        }
+        return review;
+      }),
+    };
+
+    setUser(updateUser);
+    // console.log(updateUser);
+
+    setTeas(updateTeas);
+    // console.log(updateTeas);
+  }
+
   return (
     // the value prop of the provider will be our context data. this value will be available to child components of this provider
     <TeasContext.Provider
-      value={{ teas, setTeas, addTea, addReview, deleteReview }}
+      value={{ teas, setTeas, addTea, addReview, deleteReview, editReview }}
     >
       {children}
     </TeasContext.Provider>
