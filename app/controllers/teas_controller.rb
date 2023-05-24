@@ -5,10 +5,17 @@ class TeasController < ApplicationController
 
     #including category, reviews & reviews.user in #index & #show allows access to deeply nested data. without it, ActiveModel Serializer only nests associations 1 level deep. this also limits the user attributes to those in user serializer.
 
-    # GET all teas alphabetically by title regardless of capitalization
+    # GET 3 teas at a time (for infinite scroll) alphabetically by title regardless of capitalization
+    # page parameter is converted to an integer. 
+    # page number is used if positive, otherwise, it defaults to 1 to prevent database error "OFFSET must not be negative."
+    # offset((page - 1) * per_page) skips the appropriate number of teas based on the current page number and the number of teas per page.
+    # limit(per_page) limits the result to the specified number of teas per page.
     def index
-        tea = Tea.order('lower(name)').all
-        render json: tea, include: ['category', 'reviews', 'reviews.user']
+        page = params[:page].to_i.positive? ? params[:page].to_i : 1
+        per_page = 3
+        
+        teas = Tea.order('lower(name)').offset((page - 1) * per_page).limit(per_page)
+        render json: teas, include: ['category', 'reviews', 'reviews.user']
     end
 
     # POST a new tea
