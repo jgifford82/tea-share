@@ -8,7 +8,7 @@ const TeasContext = React.createContext();
 // create a provider component
 function TeasProvider({ children }) {
   // Rather than having the teas variable as state in App component, we can set up the context value to be stateful.
-  const [teas, setTeas] = useState(null);
+  const [teas, setTeas] = useState([]);
 
   // import UserContext and access user state and setUser function
   const { user, setUser } = useContext(UserContext);
