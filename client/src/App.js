@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { UsersContext } from "./context/users";
-import { TeasContext } from "./context/teas";
+// import { TeasContext } from "./context/teas";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
@@ -14,20 +14,22 @@ import MyReviewsList from "./components/MyReviewsList";
 function App() {
   const { user, setUser } = useContext(UserContext);
   const { setUsers } = useContext(UsersContext);
-  const { teas, setTeas } = useContext(TeasContext);
-  const [loading, setLoading] = useState(true);
 
-  // Fetches teas data (containing reviews & category for each teas) from backend server & sets state with that data.
-  useEffect(() => {
-    fetch("/teas")
-      .then((r) => r.json())
-      // .then((data) => console.log(data));
-      // .then((data) => setTeas(data));
-      .then((data) => {
-        setTeas(data);
-        setLoading(false);
-      });
-  }, [setTeas]);
+  // Commented out teas context & fetch after implementing infinite scroll
+
+  // const { teas, setTeas } = useContext(TeasContext);
+
+  // Fetches teas data (containing reviews & category for each teas) from backend server & sets state with that data. No longer needed after implementing infinite scroll in TeasList component.
+  // useEffect(() => {
+  //   fetch("/teas")
+  //     .then((r) => r.json())
+  //     // .then((data) => console.log(data));
+  //     // .then((data) => setTeas(data));
+  //     .then((data) => {
+  //       setTeas(data);
+  //       setLoading(false);
+  //     });
+  // }, [setTeas]);
 
   // console.log(teas);
 
@@ -58,11 +60,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* !loading && checks if loading is false before rendering the TeasList component so it renders when teas data finishes loading */}
-          {/* if user is truthy, && operator returns the route so a user that's logged in can see the teas */}
-          {!loading && user && (
-            <Route path="/teas" element={<TeasList teas={teas} />} />
-          )}
+          <Route path="/teas" element={<TeasList />} />
           <Route path="/teas/:id" element={<TeaReviewsList />} />
           <Route path="/users/:id" element={<UserTeasList />} />
           {/* if user is truthy, && operator returns the route so a user that's logged in can see their reviews list */}
